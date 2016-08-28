@@ -85,14 +85,14 @@ public class Rover {
             long found = scents.stream().filter(s -> s.equals(newPos)).count();
             
             if (found > 0) {
-                LOG.trace("Ignoring command");
+                LOG.debug("Ignoring command");
             } else {
                 position = newPos;
             }
         } else {
             lost = true;
             
-            dataRecorder.addScent(newPos);
+            dataRecorder.addScent(position);
         }
     }
 
