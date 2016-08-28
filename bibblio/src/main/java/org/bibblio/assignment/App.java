@@ -30,7 +30,7 @@ public class App {
             throw new RuntimeException("The map size exceeds Mar's real estate");
         }
 
-        String[][] terrain = new String[length][breadth];
+        Recorder dataRecorder = new Recorder(length, breadth);
         
         List<RoverCommand> commands = new ArrayList<>();
         
@@ -53,7 +53,7 @@ public class App {
         }
         
         for(RoverCommand currentCmd : commands) {
-            final Rover curiocity = new Rover(currentCmd.getOrientation(), terrain, currentCmd.getStartCoordintes());
+            final Rover curiocity = new Rover(currentCmd.getOrientation(), dataRecorder, currentCmd.getStartCoordintes());
             
             final List<String> roverInstructions = currentCmd.getInstructions();
             
