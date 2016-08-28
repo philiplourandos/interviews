@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.internal.runners.JUnit4ClassRunner;
 
 /**
@@ -15,7 +14,7 @@ import org.junit.internal.runners.JUnit4ClassRunner;
 @RunWith(JUnit4ClassRunner.class)
 public class RoverTest {
     
-    private static final String[][] MARS = new String[5][3];
+    private static final String[][] MARS = new String[3][5];
     private static final RoverCommand[] SAMPLE_INPUTS = new RoverCommand[]{
         new RoverCommand("1 1 E", "RFRFRFRF"),
         new RoverCommand("3 2 N", "FRRFLLFFRRFLL"),
@@ -59,6 +58,12 @@ public class RoverTest {
     
     @Test(expected = RuntimeException.class)
     public void invalidInstructions() {
-        App.main(new String[]{"50 60", "3 2 E", "dFFFLLRR"});
+        App.main(new String[]{"4 5", "3 2 E", "dFFFLLRR"});
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void tooManyInstructions() {
+        App.main(new String[]{"30 20", "3 2 E", "FFLLRRRRRRLLLLFFFFFFFFFFLLRRLRFFFLLRRRRRFFFFLLLLLLLRRRRFFFFFFFFFRRRRLLLLLRRRRRRLLLLRRRFFFFFFFFFFLLLL"});
     }
 }
+

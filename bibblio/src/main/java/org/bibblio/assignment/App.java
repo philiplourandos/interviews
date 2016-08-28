@@ -17,6 +17,7 @@ public class App {
     private static final Pattern INVALID_CMDS = Pattern.compile("[^RLF]");
     
     private static final int MAX_MARS_SIZE = 50;
+    private static final int MAX_INSTRUCTIONS = 100;
 
     public static void main(String[] args) {
         String[] marsDimensions = args[0].split(" ");
@@ -36,6 +37,10 @@ public class App {
         for(int index = 1; index < args.length; index++) {
             final String initialPositioning = args[index];
             final String cmds = args[++index];
+            
+            if (cmds.length() > MAX_INSTRUCTIONS) {
+                throw new RuntimeException("Max instructions exceeded");
+            }
             
             Matcher validation = INVALID_CMDS.matcher(cmds);
             boolean invalidsFound = validation.find();
