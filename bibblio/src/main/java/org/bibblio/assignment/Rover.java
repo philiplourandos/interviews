@@ -79,7 +79,7 @@ public class Rover {
         int x = newPos.getX();
         int y = newPos.getY();
         
-        if (x <= dataRecorder.getMarsLength() && x  >=0 && y <= dataRecorder.getMarsBreadth() && y >= 0) {
+        if (x <= dataRecorder.getMarsLength() && x >= 0 && y <= dataRecorder.getMarsBreadth() && y >= 0) {
             List<Coordinates> scents = dataRecorder.getScents();
             
             long found = scents.stream().filter(s -> s.equals(newPos)).count();
