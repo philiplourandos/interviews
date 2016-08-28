@@ -78,9 +78,6 @@ public class Rover {
         int terrainX = newPos.getX();
         int terrainY = (terrain[terrainX].length - 1)- newPos.getY();
 
-        System.out.println("terrain X: " + terrainX);
-        System.out.println("terrain Y: " + terrainY);
-        
         if ((terrainX < 0 || terrainX >= terrain.length) || (terrainY < 0 || terrainY >= terrain[0].length)) {
             int currentX = position.getX();
             int currentY = terrain[currentX].length - position.getY();
@@ -98,11 +95,11 @@ public class Rover {
             position = newPos;
         }
     }
-    
+
     @Override
     public String toString() {
-        final String lost = this.lost ? "LOST" : "";
+        final String lostOutput = this.lost ? "LOST" : "";
 
-        return String.format("%d %d %s %s", position.getX(), position.getY(), currentDir, lost);
+        return String.format("%d %d %s %s", position.getX(), position.getY(), currentDir, lostOutput);
     }
 }
