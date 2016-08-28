@@ -36,4 +36,9 @@ public class West implements Direction {
 
         return new Coordinates(--x, currentPosition.getY());
     }
+
+    @Override
+    public String toString() {
+        return Direction.W;
+    }
 }

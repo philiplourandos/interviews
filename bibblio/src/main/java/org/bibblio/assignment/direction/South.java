@@ -37,4 +37,9 @@ public class South implements Direction {
         
         return new Coordinates(currentPosition.getX(), y);
     }
+
+    @Override
+    public String toString() {
+        return Direction.S;
+    }
 }
