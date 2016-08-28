@@ -1,6 +1,8 @@
 package org.bibblio.assignment;
 
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -13,6 +15,8 @@ import org.junit.internal.runners.JUnit4ClassRunner;
  */
 @RunWith(JUnit4ClassRunner.class)
 public class RoverTest {
+    
+    private static final Logger LOG = LogManager.getLogger();
     
     private final Recorder roverRecorder = new Recorder(5, 3);
     
@@ -36,18 +40,12 @@ public class RoverTest {
 
             final Rover rover = new Rover(cmd.getOrientation(), roverRecorder, cmd.getStartCoordintes());
 
-            System.out.println(rover);
-            
             for(String currentInstr : instructions) {
-                System.out.println(currentInstr);
-
                 rover.executeInstruction(currentInstr);
-
-                System.out.println(rover);
             }
 
-            System.out.println("---------------------------------------------");
-            
+            LOG.info("{}", rover);
+
             assertEquals(EXPECTED_OUTPUTS[index], rover.toString().trim());
         }
     }
@@ -64,7 +62,7 @@ public class RoverTest {
     
     @Test(expected = RuntimeException.class)
     public void tooManyInstructions() {
-        App.main(new String[]{"30 20", "3 2 E", "FFLLRRRRRRLLLLFFFFFFFFFFLLRRLRFFFLLRRRRRFFFFLLLLLLLRRRRFFFFFFFFFRRRRLLLLLRRRRRRLLLLRRRFFFFFFFFFFLLLL"});
+        App.main(new String[]{"30 20", "3 2 E", "FFLLRRRRRRLLLLFFFFFFFFFFLLRRLRFFFLLRRRRFFRFFFFLLLLLLLRRRRFFFFFFFFFRRRRLLLLLRRRRRRLLLLRRRFFFFFFFFFFLLLL"});
     }
 }
 
