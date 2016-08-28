@@ -14,7 +14,8 @@ import org.junit.internal.runners.JUnit4ClassRunner;
 @RunWith(JUnit4ClassRunner.class)
 public class RoverTest {
     
-    private static final String[][] MARS = new String[3][5];
+    private final Recorder roverRecorder = new Recorder(5, 3);
+    
     private static final RoverCommand[] SAMPLE_INPUTS = new RoverCommand[]{
         new RoverCommand("1 1 E", "RFRFRFRF"),
         new RoverCommand("3 2 N", "FRRFLLFFRRFLL"),
@@ -33,7 +34,7 @@ public class RoverTest {
             final RoverCommand cmd = SAMPLE_INPUTS[index];
             List<String> instructions = cmd.getInstructions();
 
-            final Rover rover = new Rover(cmd.getOrientation(), MARS, cmd.getStartCoordintes());
+            final Rover rover = new Rover(cmd.getOrientation(), roverRecorder, cmd.getStartCoordintes());
 
             System.out.println(rover);
             
