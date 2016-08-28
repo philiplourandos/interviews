@@ -33,8 +33,9 @@ public class Rover {
     private Coordinates position;
     
     private boolean lost;
+    private boolean scentDetected;
     
-    private Recorder dataRecorder;
+    private final Recorder dataRecorder;
 
     static {
         NORTH.setDirections(WEST, EAST);
@@ -73,25 +74,27 @@ public class Rover {
     }
 
     private void move() {
-        Coordinates newPos = currentDir.calc(position);
+        if (!scentDetected) {
+            Coordinates newPos = currentDir.calc(position);
 
-        int x = newPos.getX();
-        int y = newPos.getY();
-        
-        if (x <= dataRecorder.getMarsLength() && x >= 0 && y <= dataRecorder.getMarsBreadth() && y >= 0) {
-            List<Coordinates> scents = dataRecorder.getScents();
-            
-            long found = scents.stream().filter(s -> s.equals(newPos)).count();
-            
-            if (found > 0) {
-                LOG.debug("Ignoring command");
+            int x = newPos.getX();
+            int y = newPos.getY();
+
+            if (x <= dataRecorder.getMarsLength() && x >= 0 && y <= dataRecorder.getMarsBreadth() && y >= 0) {
+                List<Coordinates> scents = dataRecorder.getScents();
+
+                long found = scents.stream().filter(s -> s.equals(newPos)).count();
+
+                if (found > 0) {
+                    scentDetected = true;
+                } else {
+                    position = newPos;
+                }
             } else {
-                position = newPos;
+                lost = true;
+
+                dataRecorder.addScent(position);
             }
-        } else {
-            lost = true;
-            
-            dataRecorder.addScent(position);
         }
     }
 
