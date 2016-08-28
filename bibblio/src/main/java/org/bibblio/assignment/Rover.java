@@ -17,7 +17,6 @@ import org.bibblio.assignment.direction.West;
 public class Rover {
     private static final Logger LOG = LogManager.getLogger();
     
-    private static final String NO_GO_AREA = "X";
     private static final String INSTRUCTION_FORWARD = "F";
     private static final String INSTRUCTION_RIGHT = "R";
     private static final String INSTRUCTION_LEFT = "L";
