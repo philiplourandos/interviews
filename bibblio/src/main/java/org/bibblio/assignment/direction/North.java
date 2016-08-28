@@ -33,7 +33,7 @@ public class North implements Direction {
     @Override
     public Coordinates calc(Coordinates currentPosition) {
         int y = currentPosition.getY();
-        y--;
+        y++;
 
         return new Coordinates(currentPosition.getX(), y);
     }

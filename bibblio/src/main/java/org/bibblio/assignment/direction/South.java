@@ -9,31 +9,32 @@ import org.bibblio.assignment.Direction;
  */
 public class South implements Direction {
 
-    private Direction east;
-    private Direction west;
+    private Direction left;
+    private Direction right;
     
     public South() {
     }
 
     @Override
     public Direction left() {
-        return west;
+        return left;
     }
 
     @Override
     public Direction right() {
-        return east;
+        return right;
     }
 
     public void setDirections(Direction left, Direction right) {
-        this.west = right;
-        this.east = left;
+        this.left = left;
+        this.right = right;
+        
     }
 
     @Override
     public Coordinates calc(Coordinates currentPosition) {
         int y = currentPosition.getY();
-        y++;
+        y--;
         
         return new Coordinates(currentPosition.getX(), y);
     }

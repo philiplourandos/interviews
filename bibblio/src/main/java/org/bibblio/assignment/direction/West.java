@@ -9,25 +9,25 @@ import org.bibblio.assignment.Direction;
  */
 public class West implements Direction {
 
-    private Direction north;
-    private Direction south;
+    private Direction left;
+    private Direction right;
     
     public West() {
     }
 
     @Override
     public Direction left() {
-        return south;
+        return left;
     }
 
     @Override
     public Direction right() {
-        return north;
+        return right;
     }
     
     public void setDirections(Direction left, Direction right) {
-        this.north = right;
-        this.south = left;
+        this.left = left;
+        this.right = right;
     }
 
     @Override
