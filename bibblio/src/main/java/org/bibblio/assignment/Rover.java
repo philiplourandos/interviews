@@ -1,6 +1,7 @@
 package org.bibblio.assignment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,12 +31,12 @@ public class Rover {
 
     private Direction currentDir;
     
-    private String[][] terrain;
-    
     private Coordinates position;
     
     private boolean lost;
     
+    private Recorder dataRecorder;
+
     static {
         NORTH.setDirections(WEST, EAST);
         SOUTH.setDirections(EAST, WEST);
@@ -48,11 +49,11 @@ public class Rover {
         LOOKUP_DIRECTION.put(Direction.W, WEST);
     }
 
-    public Rover(String initialOrientation, String[][] terrain, Coordinates start) {
+    public Rover(String initialOrientation, Recorder dataRecorder, Coordinates start) {
         currentDir = LOOKUP_DIRECTION.get(initialOrientation);
 
-        this.terrain = terrain;
-
+        this.dataRecorder = dataRecorder;
+        
         this.position = start;
     }
     
@@ -75,24 +76,23 @@ public class Rover {
     private void move() {
         Coordinates newPos = currentDir.calc(position);
 
-        int terrainX = newPos.getX();
-        int terrainY = (terrain[terrainX].length - 1)- newPos.getY();
-
-        if ((terrainX < 0 || terrainX >= terrain.length) || (terrainY < 0 || terrainY >= terrain[0].length)) {
-            int currentX = position.getX();
-            int currentY = terrain[currentX].length - position.getY();
-
-            terrain[currentX][currentY] = NO_GO_AREA;
-
-            lost = true;
-
-            LOG.trace("New position invalid");
-        } else if (terrain[terrainX][terrainY] != null && terrain[terrainX][terrainY].equals(NO_GO_AREA)) {
-            LOG.trace("Scent detected, ignoring");
-        } else {
-            LOG.trace("Moving to new grid co-ordinate - X: {}, Y: {}", newPos.getX(), newPos.getY());
+        int x = newPos.getX();
+        int y = newPos.getY();
+        
+        if (x <= dataRecorder.getMarsLength() && x  >=0 && y <= dataRecorder.getMarsBreadth() && y >= 0) {
+            List<Coordinates> scents = dataRecorder.getScents();
             
-            position = newPos;
+            long found = scents.stream().filter(s -> s.equals(newPos)).count();
+            
+            if (found > 0) {
+                LOG.trace("Ignoring command");
+            } else {
+                position = newPos;
+            }
+        } else {
+            lost = true;
+            
+            dataRecorder.addScent(newPos);
         }
     }
 
