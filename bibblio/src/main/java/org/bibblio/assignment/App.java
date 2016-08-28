@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author plourand
  */
 public class App {
-    private static final Logger LOG = LogManager.getLogger();
-    
     private static final Pattern INVALID_CMDS = Pattern.compile("[^RLF]");
     
     private static final int MAX_MARS_SIZE = 50;
@@ -25,7 +21,7 @@ public class App {
         int breadth = Integer.valueOf(marsDimensions[1]);
 
         if (length > MAX_MARS_SIZE || breadth > MAX_MARS_SIZE) {
-            LOG.error("The map size exceeds Mar's real estate");
+            System.err.println("The map size exceeds Mar's real estate");
 
             throw new RuntimeException("The map size exceeds Mar's real estate");
         }
@@ -60,8 +56,8 @@ public class App {
             for(String currentInstr : roverInstructions) {
                 curiocity.executeInstruction(currentInstr);
             }
-            
-            LOG.info("{}", curiocity);
+
+            System.out.println(curiocity);
         }
     }
 }

@@ -3,8 +3,6 @@ package org.bibblio.assignment;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bibblio.assignment.direction.East;
 import org.bibblio.assignment.direction.North;
 import org.bibblio.assignment.direction.South;
@@ -15,8 +13,6 @@ import org.bibblio.assignment.direction.West;
  * @author plourand
  */
 public class Rover {
-    private static final Logger LOG = LogManager.getLogger();
-    
     private static final String INSTRUCTION_FORWARD = "F";
     private static final String INSTRUCTION_RIGHT = "R";
     private static final String INSTRUCTION_LEFT = "L";
