@@ -22,7 +22,7 @@ public class App {
         if (length > MAX_MARS_SIZE || breadth > MAX_MARS_SIZE) {
             LOG.error("The map size exceeds Mar's real estate");
 
-            return;
+            throw new RuntimeException("The map size exceeds Mar's real estate");
         }
 
         String[][] terrain = new String[length][breadth];
