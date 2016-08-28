@@ -31,4 +31,15 @@ public class Coordinates {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass().isAssignableFrom(obj.getClass())) {
+            Coordinates comp = (Coordinates) obj;
+
+            return comp.x == this.x && comp.y == this.y;
+        } else {
+            return false;
+        }
+    }
 }
