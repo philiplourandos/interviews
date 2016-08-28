@@ -5,15 +5,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.internal.runners.JUnit4ClassRunner;
 
 /**
  *
  * @author plourand
  */
-@RunWith(JUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class RoverTest {
     
     private static final Logger LOG = LogManager.getLogger();
