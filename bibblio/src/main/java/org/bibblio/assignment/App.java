@@ -2,6 +2,8 @@ package org.bibblio.assignment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,6 +13,8 @@ import org.apache.logging.log4j.Logger;
  */
 public class App {
     private static final Logger LOG = LogManager.getLogger();
+    
+    private static final Pattern INVALID_CMDS = Pattern.compile("[^RLF]");
     
     private static final int MAX_MARS_SIZE = 50;
 
@@ -32,6 +36,13 @@ public class App {
         for(int index = 1; index < args.length; index++) {
             final String initialPositioning = args[index];
             final String cmds = args[++index];
+            
+            Matcher validation = INVALID_CMDS.matcher(cmds);
+            boolean invalidsFound = validation.find();
+            
+            if (invalidsFound) {
+                throw new RuntimeException(String.format("Input: %s contains invalid instructions", cmds));
+            }
             
             commands.add(new RoverCommand(initialPositioning, cmds));
         }
