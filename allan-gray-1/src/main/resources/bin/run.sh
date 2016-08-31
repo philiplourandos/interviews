@@ -1,0 +1,1 @@
+java -jar ../lib/allangray-assignment-1.0.0.jar  $@

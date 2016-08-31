@@ -1,0 +1,8 @@
+Ward follows Alan
+Alan follows Martin
+Ward follows Martin, Alan
+adam follows Martin
+Phil follows IO, Alan, Phil, adam
+Robert follows Alan, Martin, IO, Phil
+adam follows nobody 
+adam follows Phil, Guest

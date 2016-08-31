@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.7
+version = '1.0.0'
+archivesBaseName = 'allangray-assignment'
+
+repositories() {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-log4j12:1.7.6'
+    compile 'org.springframework:spring-core:4.0.2.RELEASE'
+    testCompile 'junit:junit:4.11'
+}
+
+jar {
+    manifest {
+        def cp = configurations.runtime.collect { jar ->
+            '../lib/' + jar.getName()
+        }.join(' ')
+        
+        attributes 'Main-Class': 'com.lore.iview.Main', 'Implementation-Version': version, 'Class-Path': cp
+    }
+}
+
+task distZip(type: Zip, dependsOn: ['build']) {
+    from('src/main/resources') {
+        into 'allangray-iview/config'
+        include '*.properties'
+    }
+    from('src/main/resources/bin') {
+        into('allangray-iview/bin')
+        fileMode 0555
+    }
+    into('allangray-iview/lib') {
+        from configurations.runtime
+    }
+    from('build/libs') {
+        into 'allangray-iview/lib'
+    }
+}

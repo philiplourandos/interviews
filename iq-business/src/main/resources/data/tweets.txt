@@ -1,0 +1,12 @@
+Alan> If you have a procedure with 10 parameters, you probably missed some.
+Ward> There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.
+Alan> Random numbers should not be generated with a method chosen at random.
+adam> Working with SmartClient.
+Martin> Am lonely here
+IO> At airport :(
+Robert> Amazing
+Guest> Awestruck
+Phil> Love gradle
+Ward> Java Champion
+Alan> brb
+adam> AS400 sucks.

@@ -1,0 +1,55 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+sourceCompatibility = '1.7'
+version = '0.0.1'
+archivesBaseName = 'ag-twitter'
+
+mainClassName = 'main.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-log4j12:1.7.7'
+    compile 'com.beust:jcommander:1.35'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.springframework:spring-core:3.2.8.RELEASE'
+}
+
+task wrapper(type : Wrapper) {
+    gradleVersion = '1.12'
+}
+
+jar {
+    manifest {
+        def classpath = configurations.runtime.collect { jarfile -> 
+            '../lib/' + jarfile.getName()
+        }.join(' ')
+        
+        attributes 'Main-Class': 'main.Main', 'Class-Path': classpath, 'Implementation-Version': version
+    }
+}
+
+task dist(type: Zip, dependsOn: ['build']) {
+    into('ag-twitter/bin') {
+        from('src/main/resources/bin')
+        fileMode 0555
+    }
+    into('ag-twitter/lib') {
+        from configurations.runtime
+    }
+    from('build/libs') {
+        into 'ag-twitter/lib'
+    }
+    from('src/main/resources/data') {
+        into 'ag-twitter/data'
+    }
+}
+
+task runit(type: JavaExec) {
+    main 'main.Main'
+    args '--tweets', 'src/main/resources/data/tweets.txt', '--users', 'src/main/resources/data/users.txt'
+    classpath = sourceSets.main.runtimeClasspath
+}
