@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-release" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+project.ext.springBatchVersion = "3.0.0.M3"
+
+dependencies {
+    compile "org.springframework.batch:spring-batch-core:$springBatchVersion"
+    compile "org.apache.commons:commons-lang3:3.2.1"
+    compile "ch.qos.logback:logback-classic:1.1.1"
+    compile "org.springframework.boot:spring-boot-starter-batch"
+    testCompile "junit:junit:4.11"
+}
