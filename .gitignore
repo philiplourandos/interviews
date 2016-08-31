@@ -1,2 +1,3 @@
 /bibblio/build/
 /bibblio/.nb-gradle/
+*/.gradle
