@@ -1,5 +1,6 @@
 package com.noxrentals;
 
+import com.noxrentals.domain.Property;
 import com.noxrentals.service.PropertyRepository;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -19,11 +20,12 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.hasSize;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,12 +45,12 @@ public class NoxApplicationTests {
             + "     \"address\": \"63 Victoria Rd\""
             + "     \"suburb\": \"Camps Bay\""
             + "}";
-    
+
+    private static final String UPDATED_OWNER_NAME = "Gecko";    
     private static final String UPDATE_PROPERTY_PAYLOAD = 
               "{"
-            + "     \"id\": \"$ID\","
             + "     \"name\": \"Gecko\","
-            + "     \"address\": \"63 Victoria Rd\""
+            + "     \"address\": \"101 Camps Bay Dr\""
             + "     \"suburb\": \"Camps Bay\""
             + "}";
 
@@ -83,7 +85,16 @@ public class NoxApplicationTests {
 
     @Test
     public void successUpdate() throws Exception {
-        fail();
+        MvcResult result = mvc.perform(get("/api/props/search/findByName?name=Jones")).andReturn();
+        JSONObject json = new JSONObject(result.getResponse().getContentAsString());
+
+        String id = json.getString("id");
+        
+        mvc.perform(put("/api/props/{id}", id)).andExpect(status().isOk());
+        
+        Property updatedProp = repo.findByName(UPDATED_OWNER_NAME);
+        assertNotNull(updatedProp);
+        assertEquals(UPDATED_OWNER_NAME, updatedProp.getName());
     }
 
     @Test
