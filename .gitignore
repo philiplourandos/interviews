@@ -1,3 +1,7 @@
 /bibblio/build/
 /bibblio/.nb-gradle/
 */.gradle
+/nox-rentals/.nb-gradle/
+/nox-rentals/nox-test-service/build/
+*/build
+*/target
